@@ -1,0 +1,54 @@
+{
+  "create_checkout": {
+    "method": "POST",
+    "path": "/checkout-sessions"
+  },
+  "get_checkout": {
+    "method": "GET",
+    "path": "/checkout-sessions/{id}"
+  },
+  "update_checkout": {
+    "method": "PUT",
+    "path": "/checkout-sessions/{id}"
+  },
+  "complete_checkout": {
+    "method": "POST",
+    "path": "/checkout-sessions/{id}/complete"
+  },
+  "cancel_checkout": {
+    "method": "POST",
+    "path": "/checkout-sessions/{id}/cancel"
+  },
+  "create_cart": {
+    "method": "POST",
+    "path": "/carts"
+  },
+  "get_cart": {
+    "method": "GET",
+    "path": "/carts/{id}"
+  },
+  "update_cart": {
+    "method": "PUT",
+    "path": "/carts/{id}"
+  },
+  "cancel_cart": {
+    "method": "POST",
+    "path": "/carts/{id}/cancel"
+  },
+  "search_catalog": {
+    "method": "POST",
+    "path": "/catalog/search"
+  },
+  "lookup_catalog": {
+    "method": "POST",
+    "path": "/catalog/lookup"
+  },
+  "get_order": {
+    "method": "GET",
+    "path": "/orders/{id}"
+  },
+  "get_product": {
+    "method": "POST",
+    "path": "/catalog/product"
+  }
+}

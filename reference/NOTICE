@@ -1,0 +1,4 @@
+Universal Commerce Protocol (UCP)
+Copyright The UCP Authors
+
+shopping.rest.openapi.json is an unmodified upstream reference artifact retrieved from https://ucp.dev/2026-08-25/services/shopping/rest.openapi.json. It is distributed under Apache License 2.0; see LICENSE-APACHE-2.0. Retrieval and digest are recorded in provenance.json. operations.json is a method/path index extracted from that artifact.

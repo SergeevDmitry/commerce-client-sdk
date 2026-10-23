@@ -1,0 +1,58 @@
+{
+  "name": "@agentic-commerce-lab/ucp-client",
+  "version": "0.1.0",
+  "description": "UCP REST client with merchant discovery, capability selection, request signing and repeatable cart and checkout requests.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./signing": {
+      "types": "./dist/signing.d.ts",
+      "import": "./dist/signing.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "node --test test/*.test.mjs",
+    "prepack": "npm run build"
+  },
+  "keywords": [
+    "ucp",
+    "universal-commerce-protocol",
+    "agentic-commerce",
+    "ai-agents",
+    "checkout",
+    "cart",
+    "discovery",
+    "sdk"
+  ],
+  "homepage": "https://www.agentic-commerce.sh/protokolle/ucp/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/agentic-commerce-lab/commerce-client-sdk.git",
+    "directory": "packages/typescript"
+  },
+  "bugs": {
+    "url": "https://github.com/agentic-commerce-lab/commerce-client-sdk/issues"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "typescript": "~5.6.3",
+    "@types/node": "^22.0.0"
+  }
+}

@@ -1,0 +1,4 @@
+http-message-signatures==2.0.1
+requests>=2.32,<3
+build>=1.2,<2
+twine>=6,<7

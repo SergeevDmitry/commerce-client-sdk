@@ -1,0 +1,56 @@
+name: Publish packages
+on:
+  workflow_dispatch:
+    inputs:
+      registry:
+        type: choice
+        description: Registry with an owner-configured trusted publisher
+        options: [npm, pypi]
+        required: true
+permissions:
+  contents: read
+jobs:
+  npm:
+    if: inputs.registry == 'npm' && startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    environment: npm
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          registry-url: https://registry.npmjs.org
+      - run: npm ci --prefix packages/typescript
+      - run: npm run build --prefix packages/typescript
+      - run: npm test --prefix packages/typescript
+      - name: Match version to tag
+        run: node -e "const p=require('./packages/typescript/package.json'); if('v'+p.version!==process.env.GITHUB_REF_NAME) process.exit(1)"
+      - run: cd packages/typescript && npm publish --access public --provenance
+  pypi:
+    if: inputs.registry == 'pypi' && startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci --prefix packages/typescript && npm run build --prefix packages/typescript
+      - run: python -m pip install -e 'packages/python[signing]' -r tests/requirements.txt
+      - run: python -m unittest discover -s packages/python/tests -v && python tests/test_signatures.py
+      - name: Match version to tag
+        run: python -c "import os,agentic_commerce_ucp as p; assert 'v'+p.__version__ == os.environ['GITHUB_REF_NAME']"
+      - run: python -m build packages/python
+      - run: python -m twine check packages/python/dist/*
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: packages/python/dist
